@@ -8,18 +8,16 @@ import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useDebouncedCallback } from 'use-debounce';
 import Pagination from '@/components/Pagination/Pagination';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
 import Loader from '@/components/Loader/Loader';
 import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
 import NoteList from '@/components/NoteList/NoteList';
 import { NotesClientProps } from '@/types/note';
+import Link from 'next/link';
 
 const NotesClient = ({ tag }: NotesClientProps) => {
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsmodalOpen] = useState(false);
 
   const { data, isFetching, isError } = useQuery({
     queryKey: ['notes', searchQuery, page, tag],
@@ -29,14 +27,6 @@ const NotesClient = ({ tag }: NotesClientProps) => {
 
   const notes = data?.notes ?? [];
   const totalPages = data?.totalPages ?? 1;
-
-  const openModal = () => {
-    setIsmodalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsmodalOpen(false);
-  };
 
   const updateSearchQuery = useDebouncedCallback((value: string) => {
     setSearchQuery(value);
@@ -67,14 +57,8 @@ const NotesClient = ({ tag }: NotesClientProps) => {
               onPageChange={newPage => setPage(newPage)}
             />
           )}
-          {isModalOpen && (
-            <Modal onClose={closeModal}>
-              <NoteForm onClose={closeModal} />
-            </Modal>
-          )}
-          <button onClick={openModal} className={css.button}>
-            Create note +
-          </button>
+
+          <Link href="/notes/action/create">Create note +</Link>
         </header>
 
         {isFetching ? (
