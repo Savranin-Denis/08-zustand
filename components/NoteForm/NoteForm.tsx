@@ -1,11 +1,12 @@
 'use client';
 
 import css from './NoteForm.module.css';
-import { useId, useState } from 'react';
+import React, { useId, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { NewNote, NoteTag } from '@/types/note';
 import { createNote } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { useNoteDraftStore } from '@/lib/store/noteStore';
 
 interface FormErrors {
   title?: string;
@@ -17,16 +18,28 @@ export default function NoteForm() {
   const noteId = useId();
   const queryClient = useQueryClient();
   const router = useRouter();
-
   const [errors, setErrors] = useState<FormErrors>({});
+  const { draft, setDraft, clearDraft } = useNoteDraftStore();
 
   const handleCancel = () => router.push('/notes/filter/all');
+
+  const handleChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setDraft({
+      ...draft,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const { mutate, isPending } = useMutation({
     mutationFn: (values: NewNote) => createNote(values),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
-      handleCancel();
+      clearDraft();
+      router.push('/notes/filter/all');
     },
   });
 
@@ -72,6 +85,8 @@ export default function NoteForm() {
           type="text"
           name="title"
           className={css.input}
+          value={draft?.title}
+          onChange={handleChange}
         />
         {errors.title && <span className={css.error}>{errors.title}</span>}
       </div>
@@ -83,6 +98,8 @@ export default function NoteForm() {
           name="content"
           rows={8}
           className={css.textarea}
+          value={draft?.content}
+          onChange={handleChange}
         ></textarea>
         {errors.content && <span className={css.error}>{errors.content}</span>}
       </div>
@@ -93,7 +110,8 @@ export default function NoteForm() {
           id={`${noteId}-tag`}
           name="tag"
           className={css.select}
-          defaultValue=""
+          value={draft?.tag}
+          onChange={handleChange}
         >
           <option value="" disabled>
             -- Select type of Note --
