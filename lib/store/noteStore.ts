@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware';
 const initialDraft: NewNote = {
   title: '',
   content: '',
-  tag: '',
+  tag: 'Todo',
 };
 type NoteDraftStore = {
   draft: NewNote;

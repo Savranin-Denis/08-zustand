@@ -13,13 +13,7 @@ export interface NewNote {
   tag: NoteTag;
 }
 
-export type NoteTag =
-  | ''
-  | 'Todo'
-  | 'Work'
-  | 'Personal'
-  | 'Meeting'
-  | 'Shopping';
+export type NoteTag = 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
 
 export type NotesClientProps = {
   tag: string;

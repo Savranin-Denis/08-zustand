@@ -5,12 +5,12 @@ import NoteForm from '@/components/NoteForm/NoteForm';
 export const metadata: Metadata = {
   title: 'Create new note',
   description:
-    'A simple and efficient app for creating ang organizing your notes',
+    'A simple and efficient app for creating and organizing your notes',
   openGraph: {
     title: 'Create new note',
     description:
-      'A simple and efficient app for creating ang organizing your notes',
-    url: 'https://notehub.com/',
+      'A simple and efficient app for creating and organizing your notes',
+    url: 'https://08-zustand-pied-three.vercel.app/notes/action/create',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'Create new note',
     description:
-      'A simple and efficient app for creating ang organizing your notes',
+      'A simple and efficient app for creating and organizing your notes',
     images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
   },
 };

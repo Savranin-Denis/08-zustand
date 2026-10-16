@@ -15,12 +15,12 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: 'Notehub',
   description:
-    'A simple and efficient app for creating ang organizing your notes',
+    'A simple and efficient app for creating and organizing your notes',
   openGraph: {
     title: 'Notehub',
     description:
-      'A simple and efficient app for creating ang organizing your notes',
-    url: 'https://notehub.com/',
+      'A simple and efficient app for creating and organizing your notes',
+    url: 'https://08-zustand-pied-three.vercel.app/',
     images: [
       {
         url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     title: 'NoteHub',
     description:
-      'A simple and efficient app for creating ang organizing your notes',
+      'A simple and efficient app for creating and organizing your notes',
     images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
   },
 };

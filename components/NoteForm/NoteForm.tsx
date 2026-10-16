@@ -113,9 +113,6 @@ export default function NoteForm() {
           value={draft?.tag}
           onChange={handleChange}
         >
-          <option value="" disabled>
-            -- Select type of Note --
-          </option>
           <option value="Todo">Todo</option>
           <option value="Work">Work</option>
           <option value="Personal">Personal</option>
