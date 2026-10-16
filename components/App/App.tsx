@@ -6,8 +6,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useDebouncedCallback } from 'use-debounce';
 import SearchBox from '../SearchBox/SearchBox';
 import Pagination from '../Pagination/Pagination';
-import Modal from '../Modal/Modal';
-import NoteForm from '../NoteForm/NoteForm';
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import NoteList from '../NoteList/NoteList';
@@ -16,7 +14,6 @@ export default function App() {
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsmodalOpen] = useState(false);
 
   const { data, isFetching, isError } = useQuery({
     queryKey: ['notes', searchQuery, page],
@@ -26,14 +23,6 @@ export default function App() {
 
   const notes = data?.notes ?? [];
   const totalPages = data?.totalPages ?? 1;
-
-  const openModal = () => {
-    setIsmodalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsmodalOpen(false);
-  };
 
   const updateSearchQuery = useDebouncedCallback((value: string) => {
     setSearchQuery(value);
@@ -64,14 +53,6 @@ export default function App() {
               onPageChange={newPage => setPage(newPage)}
             />
           )}
-          {isModalOpen && (
-            <Modal onClose={closeModal}>
-              <NoteForm onClose={closeModal} />
-            </Modal>
-          )}
-          <button onClick={openModal} className={css.button}>
-            Create note +
-          </button>
         </header>
 
         {isFetching ? (
